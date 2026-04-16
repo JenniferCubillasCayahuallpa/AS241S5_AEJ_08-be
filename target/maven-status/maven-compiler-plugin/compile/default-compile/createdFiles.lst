@@ -1,0 +1,12 @@
+ap1\jennifer\cubillas\repository\ChatRespuestaRepository.class
+ap1\jennifer\cubillas\Application.class
+ap1\jennifer\cubillas\rest\GlobalExceptionHandler.class
+ap1\jennifer\cubillas\service\TraduccionService.class
+ap1\jennifer\cubillas\repository\TraduccionRepository.class
+ap1\jennifer\cubillas\rest\ChatRest$ChatRequest.class
+ap1\jennifer\cubillas\rest\TraduccionRest$TraduccionRequest.class
+ap1\jennifer\cubillas\model\ChatRespuesta.class
+ap1\jennifer\cubillas\rest\TraduccionRest.class
+ap1\jennifer\cubillas\rest\ChatRest.class
+ap1\jennifer\cubillas\model\Traduccion.class
+ap1\jennifer\cubillas\service\ChatService.class
