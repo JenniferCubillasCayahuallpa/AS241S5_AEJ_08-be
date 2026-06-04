@@ -45,3 +45,4 @@ jobs:
 
       - name: Pipeline Finished
         run: echo "SonarCloud analysis completed successfully"
+        
