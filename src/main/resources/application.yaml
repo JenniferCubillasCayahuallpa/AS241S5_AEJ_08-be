@@ -3,8 +3,16 @@ spring:
     name: jennifer.cubillas
   data:
     mongodb:
-      uri: mongodb+srv://alecubillas31:Cubillas31@cluster0.q8n7w4f.mongodb.net/ia_db?appName=Cluster0
-      database: ia_db
+      uri: mongodb+srv://alecubillas31:Cubillas31@cluster0.q8n7w4f.mongodb.net/ia_db?retryWrites=true&w=majority&appName=Cluster0
+  autoconfigure:
+    exclude:
+      - de.flapdoodle.embed.mongo.spring.autoconfigure.EmbeddedMongoAutoConfiguration
+
+logging:
+  level:
+    org.mongodb.driver: ERROR
+    org.mongodb.driver.cluster: ERROR
+    org.mongodb.driver.connection: ERROR
 server:
   port: 8080
 
