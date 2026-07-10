@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jennifer-cubillas-08-deployment
+  namespace: jennifer-cubillas-08
+  labels:
+    app: jennifer-cubillas-08
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jennifer-cubillas-08
+  template:
+    metadata:
+      labels:
+        app: jennifer-cubillas-08
+        version: v1
+    spec:
+      containers:
+      - name: jennifer-cubillas-08
+        image: jennifer-cubillas-08:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP
+        env:
+        # MongoDB Configuration
+        - name: SPRING_DATA_MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: jennifer-cubillas-08-secret
+              key: MONGODB_URI
+        - name: SPRING_DATA_MONGODB_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: jennifer-cubillas-08-secret
+              key: MONGODB_DATABASE
+        
+        # RapidAPI Configuration
+        - name: RAPIDAPI_KEY
+          valueFrom:
+            secretKeyRef:
+              name: jennifer-cubillas-08-secret
+              key: RAPIDAPI_KEY
+        - name: RAPIDAPI_DEEP_TRANSLATE_URL
+          valueFrom:
+            secretKeyRef:
+              name: jennifer-cubillas-08-secret
+              key: DEEP_TRANSLATE_URL
+        - name: RAPIDAPI_DEEP_TRANSLATE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: jennifer-cubillas-08-secret
+              key: DEEP_TRANSLATE_HOST
+        - name: RAPIDAPI_OPENAI21_URL
+          valueFrom:
+            secretKeyRef:
+              name: jennifer-cubillas-08-secret
+              key: OPENAI21_URL
+        - name: RAPIDAPI_OPENAI21_HOST
+          valueFrom:
+            secretKeyRef:
+              name: jennifer-cubillas-08-secret
+              key: OPENAI21_HOST
+        
+        # Spring Boot Configuration
+        - name: SERVER_PORT
+          value: "8080"
+        - name: SPRING_APPLICATION_NAME
+          value: "jennifer.cubillas"
+        
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        
+        livenessProbe:
+          httpGet:
+            path: /api/traduccion
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /api/traduccion
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      
+      restartPolicy: Always

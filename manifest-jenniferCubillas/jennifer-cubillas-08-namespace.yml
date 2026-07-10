@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jennifer-cubillas-08
+  labels:
+    name: jennifer-cubillas-08
+    environment: development
+    project: ia-apis
